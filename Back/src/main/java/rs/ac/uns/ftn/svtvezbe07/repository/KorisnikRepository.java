@@ -5,10 +5,6 @@ import org.springframework.stereotype.Repository;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
 
 import java.util.Optional;
-
-@Repository
-public interface UserRepository extends JpaRepository<Korisnik, Long> {
-
-    Optional<Korisnik> findFirstByUsername(String username);
-
+public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
+    Optional<Korisnik> findByUsername(String kor_ime);
 }

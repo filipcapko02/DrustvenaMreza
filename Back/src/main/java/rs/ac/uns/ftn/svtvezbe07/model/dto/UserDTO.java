@@ -3,7 +3,7 @@ package rs.ac.uns.ftn.svtvezbe07.model.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
 
 import javax.validation.constraints.NotBlank;
 
@@ -20,8 +20,8 @@ public class UserDTO {
     @NotBlank
     private String password;
 
-    public UserDTO(User createdUser) {
-        this.id = createdUser.getId();
-        this.username = createdUser.getUsername();
+    public UserDTO(Korisnik createdKorisnik) {
+        this.id = createdKorisnik.getId();
+        this.username = createdKorisnik.getUsername();
     }
 }
