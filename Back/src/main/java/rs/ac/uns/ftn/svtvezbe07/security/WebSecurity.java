@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
-import rs.ac.uns.ftn.svtvezbe07.service.UserService;
+import rs.ac.uns.ftn.svtvezbe07.service.KorisnikService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 public class WebSecurity {
 
     @Autowired
-    private UserService userService;
+    private KorisnikService userService;
 
     public boolean checkClubId(Authentication authentication, HttpServletRequest request, int id) {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Korisnik korisnik = userService.findByUsername(userDetails.getUsername());
-            if(id == korisnik.getId()) {
+            if(id == korisnik.getKorisnik_id()) {
                 return true;
             }
             return false;

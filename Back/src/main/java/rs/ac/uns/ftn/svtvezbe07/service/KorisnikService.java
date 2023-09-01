@@ -42,14 +42,14 @@ public class KorisnikService implements KorisnikSevice {
     @Override
     public Korisnik createUser (KorisnikKonstruktor korisnik1) {
 
-        Optional<Korisnik> korisnik = korisnikRepository.findByUsername(korisnik1.getKor_ime());
+        Optional<Korisnik> korisnik = korisnikRepository.findByUsername(korisnik1.getUsername());
 
         if(korisnik.isPresent()){
             return null;
         }
 
         Korisnik nov_korisnik = new Korisnik();
-        nov_korisnik.setKor_ime(korisnik1.getKor_ime());
+        nov_korisnik.setUsername(korisnik1.getUsername());
         nov_korisnik.setLozinka(passwordEncoder.encode(korisnik1.getLozinka()));
         nov_korisnik.setUloga(Euloga.KORISNIK);
         nov_korisnik.setIme(korisnik1.getIme());

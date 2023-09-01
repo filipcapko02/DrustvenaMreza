@@ -21,7 +21,7 @@ public class Korisnik {
     private Long korisnik_id;
 
     @Column(nullable = false, unique = true)
-    private String kor_ime;
+    private String username;
 
     @Column(nullable = false)
     private String lozinka;

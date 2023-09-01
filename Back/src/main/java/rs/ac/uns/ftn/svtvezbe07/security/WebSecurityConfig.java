@@ -17,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import rs.ac.uns.ftn.svtvezbe07.service.implementation.UserDetailsServiceImpl;
+import rs.ac.uns.ftn.svtvezbe07.service.KorisnikDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +26,7 @@ public class WebSecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserDetailsServiceImpl();
+        return new KorisnikDetailsServiceImpl();
     }
 
     @Autowired
@@ -49,9 +49,9 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Handler za vracanje 401 kada klijent sa neodogovarajucim korisnickim imenom i lozinkom pokusa da pristupi resursu
-    @Autowired
-    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+//     Handler za vracanje 401 kada klijent sa neodogovarajucim korisnickim imenom i lozinkom pokusa da pristupi resursu
+//    @Autowired
+//    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
 
     @Bean
@@ -61,30 +61,27 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // svim korisnicima dopusti da pristupe sledecim putanjama:
-        // komunikacija izmedju klijenta i servera je stateless posto je u pitanju REST aplikacija
-        // ovo znaci da server ne pamti nikakvo stanje, tokeni se ne cuvaju na serveru
-        // ovo nije slucaj kao sa sesijama koje se cuvaju na serverskoj strani - STATEFUL aplikacija
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         // sve neautentifikovane zahteve obradi uniformno i posalji 401 gresku
-        http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+//        http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
         http.authorizeRequests()
-//                .antMatchers("/h2-console/**").permitAll()	// /h2-console/** ako se koristi H2 baza)
-                .antMatchers(HttpMethod.POST, "/api/users/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/clubs/{id}/**").access("@webSecurity.checkClubId(authentication,request,#id)")
+                .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/auth/signup").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/post/allposts").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/auth/whoami").permitAll()
+//                .antMatchers(HttpMethod.GET, "/api/post/all").permitAll()
                 // ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici
                 // koji tip korisnika moze da pristupi odgovarajucoj ruti. Npr. ukoliko zelimo da definisemo da ruti 'admin' moze da pristupi
                 // samo korisnik koji ima rolu 'ADMIN', navodimo na sledeci nacin:
-                //.antMatchers("/api/clubs").hasRole("ADMIN")// ili .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                // .antMatchers("/admin").hasRole("ADMIN") ili .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
 
                 // za svaki drugi zahtev korisnik mora biti autentifikovan
                 .anyRequest().authenticated().and()
                 // za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
                 .cors().and()
-
-                // umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
+//
+//                // umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
                 .addFilterBefore(new AuthenticationTokenFilter(userDetailsService(), tokenUtils), BasicAuthenticationFilter.class);
 
         // zbog jednostavnosti primera ne koristimo Anti-CSRF token (https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
@@ -97,17 +94,25 @@ public class WebSecurityConfig {
         return http.build();
     }
 
+
+
     // metoda u kojoj se definisu putanje za igorisanje autentifikacije
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         // Autentifikacija ce biti ignorisana ispod navedenih putanja (kako bismo ubrzali pristup resursima)
         // Zahtevi koji se mecuju za web.ignoring().antMatchers() nemaju pristup SecurityContext-u
         // Dozvoljena POST metoda na ruti /api/users/login, za svaki drugi tip HTTP metode greska je 401 Unauthorized
-        return (web) -> web.ignoring().antMatchers(HttpMethod.POST, "/api/users/login")
+        return (web) -> web.ignoring().antMatchers(HttpMethod.POST, "/api/auth/login")
+                .antMatchers(HttpMethod.POST, "/api/auth/signup")
+//                .antMatchers(HttpMethod.GET, "/api/auth/whoami")
+//                .antMatchers(HttpMethod.GET, "/api/post/all")
 
                 // Ovim smo dozvolili pristup statickim resursima aplikacije
                 .antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico",
                         "/**/*.html", "/**/*.css", "/**/*.js");
 
     }
+
+
 }
+

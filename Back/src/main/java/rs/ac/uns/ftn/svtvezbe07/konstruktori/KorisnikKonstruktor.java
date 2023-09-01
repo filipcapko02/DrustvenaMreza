@@ -11,7 +11,7 @@ import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
 public class KorisnikKonstruktor {
     private Long korisnik_id;
 
-    private String kor_ime;
+    private String username;
 
     private String lozinka;
 
@@ -24,7 +24,7 @@ public class KorisnikKonstruktor {
 
     public KorisnikKonstruktor(Korisnik nov_korisnik) {
         this.korisnik_id = nov_korisnik.getKorisnik_id();
-        this.kor_ime = nov_korisnik.getKor_ime();
+        this.username = nov_korisnik.getUsername();
         this.email = nov_korisnik.getEmail();
         this.ime = nov_korisnik.getIme();
         this.prezime = nov_korisnik.getPrezime();
