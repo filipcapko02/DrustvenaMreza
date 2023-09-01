@@ -1,0 +1,74 @@
+.registration-container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+}
+
+/* Naslov */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Stil za formu */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stil za form-grupu (labela + input) */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Stil za labelu */
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Stil za input polje */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Stil za dugme za registraciju */
+.register-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+}
+
+/* Stil za tekst ispod forme */
+p {
+    margin-top: 10px;
+}
+
+/* Stil za link za prelazak na stranicu za prijavu */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
