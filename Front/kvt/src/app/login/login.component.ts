@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       });
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      lozinka: ['', Validators.required]
     });
   }
 
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value)
       .subscribe(data => {
           this.userService.getMyInfo().subscribe();
-          this.router.navigate(['/homepage']);
+          this.router.navigate(['/']);
         },
         error => {
           this.submitted = false;
