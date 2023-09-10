@@ -4,8 +4,8 @@ package rs.ac.uns.ftn.svtvezbe07.service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Grupa;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Objava;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Group;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Post;
 import rs.ac.uns.ftn.svtvezbe07.repository.GrupaRepository;
 import rs.ac.uns.ftn.svtvezbe07.repository.ObjavaRepository;
 
@@ -23,14 +23,14 @@ public class ObjavaService {
 
     public final GrupaRepository grupaRepository;
 
-    public List<Objava> getAll() {
+    public List<Post> getAll() {
         return objavaRepository.findAll();
     }
-    public Objava getObjava(Long id) {
+    public Post getPost(Long id) {
         return objavaRepository.findById(id).get();
     }
     @Transactional
-    public Objava save(Objava post) {
+    public Post save(Post post) {
         return objavaRepository.save(post);
     }
 
@@ -42,9 +42,9 @@ public class ObjavaService {
 
 
 
-    public List<Objava> getGroupPosts(Long id) {
-        Grupa grupa = grupaRepository.findById(id).get();
-        return grupa.getObjave();
+    public List<Post> getGroupPosts(Long id) {
+        Group group = grupaRepository.findById(id).get();
+        return group.getPosts();
     }
 
 }

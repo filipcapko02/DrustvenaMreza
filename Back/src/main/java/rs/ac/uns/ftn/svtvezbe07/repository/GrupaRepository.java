@@ -2,10 +2,10 @@ package rs.ac.uns.ftn.svtvezbe07.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Grupa;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Group;
 
 @Repository
-public interface GrupaRepository extends JpaRepository<Grupa, Long> {
+public interface GrupaRepository extends JpaRepository<Group, Long> {
     @Override
-    Grupa getOne(Long aLong);
+    Group getOne(Long aLong);
 }

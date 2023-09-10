@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.KorisnikKonstruktor;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.Euloga;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
 import rs.ac.uns.ftn.svtvezbe07.repository.KorisnikRepository;
 
 import javax.transaction.Transactional;
@@ -25,38 +25,38 @@ public class KorisnikService implements KorisnikSevice {
     }
 
     @Override
-    public Korisnik geOne(Long korisnik_id) { return korisnikRepository.getOne(korisnik_id);};
+    public User geOne(Long userId) { return korisnikRepository.getOne(userId);};
     @Override
-    public Korisnik findByUsername(String username) {
-        Optional<Korisnik> korisnik = korisnikRepository.findByUsername(username);
-        if (!korisnik.isEmpty()) {
-            return korisnik.get();
+    public User findByUsername(String username) {
+        Optional<User> user = korisnikRepository.findByUsername(username);
+        if (!user.isEmpty()) {
+            return user.get();
         }
         return null;
     }
     @Transactional
-    public Korisnik save(Korisnik korisnik) {
-        return korisnikRepository.save(korisnik);
+    public User save(User user) {
+        return korisnikRepository.save(user);
     }
 
     @Override
-    public Korisnik createUser (KorisnikKonstruktor korisnik1) {
+    public User createUser (KorisnikKonstruktor korisnik1) {
 
-        Optional<Korisnik> korisnik = korisnikRepository.findByUsername(korisnik1.getUsername());
+        Optional<User> user = korisnikRepository.findByUsername(korisnik1.getUsername());
 
-        if(korisnik.isPresent()){
+        if(user.isPresent()){
             return null;
         }
 
-        Korisnik nov_korisnik = new Korisnik();
-        nov_korisnik.setUsername(korisnik1.getUsername());
-        nov_korisnik.setLozinka(passwordEncoder.encode(korisnik1.getLozinka()));
-        nov_korisnik.setUloga(Euloga.KORISNIK);
-        nov_korisnik.setIme(korisnik1.getIme());
-        nov_korisnik.setPrezime(korisnik1.getPrezime());
-        nov_korisnik.setEmail(korisnik1.getEmail());
-        nov_korisnik = korisnikRepository.save(nov_korisnik);
+        User nov_user = new User();
+        nov_user.setUsername(korisnik1.getUsername());
+        nov_user.setPassword(passwordEncoder.encode(korisnik1.getPassword()));
+        nov_user.setUloga(Euloga.USER);
+        nov_user.setFirstName(korisnik1.getFirstName());
+        nov_user.setLastName(korisnik1.getLastName());
+        nov_user.setEmail(korisnik1.getEmail());
+        nov_user = korisnikRepository.save(nov_user);
 
-        return nov_korisnik;
+        return nov_user;
     }
 }

@@ -1,20 +1,19 @@
 package rs.ac.uns.ftn.svtvezbe07.controller;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.Euloga;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
 import rs.ac.uns.ftn.svtvezbe07.service.KorisnikService;
 
 import javax.transaction.Transactional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
-@RequestMapping("api/korisnik")
+@RequestMapping("api/user")
 public class KorisnikController {
     @Autowired
     KorisnikService service;
@@ -22,21 +21,21 @@ public class KorisnikController {
     private PasswordEncoder passwordEncoder;
 
     @Transactional
-    @PutMapping("/updatelozinka/{stara}")
-    public ResponseEntity<Korisnik> create(@RequestBody Korisnik korisnik, @PathVariable("stara") String stara_lozinka) {
+    @PutMapping("/updatepassword/{old}")
+    public ResponseEntity<User> create(@RequestBody User user, @PathVariable("old") String oldPassword) {
 
-        String encodedPassword = service.geOne(korisnik.getKorisnik_id()).getLozinka();
+        String encodedPassword = service.geOne(user.getUserId()).getPassword();
 
-        boolean match = passwordEncoder.matches(stara_lozinka, encodedPassword);
-        System.out.println(stara_lozinka);
-        System.out.println(service.geOne(korisnik.getKorisnik_id()).getLozinka());
+        boolean match = passwordEncoder.matches(oldPassword, encodedPassword);
+        System.out.println(oldPassword);
+        System.out.println(service.geOne(user.getUserId()).getPassword());
         if(match){
-            korisnik.setUloga(Euloga.KORISNIK);
-            korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
-            Korisnik nov = service.save(korisnik);
+            user.setUloga(Euloga.USER);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            User nov = service.save(user);
             return new ResponseEntity<>(nov, HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<>(korisnik, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(user, HttpStatus.NOT_ACCEPTABLE);
         }
 
     }

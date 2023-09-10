@@ -4,11 +4,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
-import java.util.Set;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,34 +12,34 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "grupe")
-public class Grupa {
+@Table(name = "groups")
+public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String ime;
+    private String name;
 
     @Column
-    private String opis;
+    private String descripiton;
 
     @Column(nullable = false)
-    private LocalDate d_v_kreiranja;
+    private LocalDate creationDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Objava> objave;
+    private List<Post> posts;
 
     @ManyToOne
-    @JoinColumn(name = "korisnik_id", nullable = false)
-    private Korisnik korisnik;
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Column(nullable = false)
-    private boolean je_suspendovan;
+    private boolean isSuspended;
 
 
-    public Grupa() {
-        this.d_v_kreiranja = LocalDate.now();
-        this.je_suspendovan = false;
+    public Group() {
+        this.creationDate = LocalDate.now();
+        this.isSuspended = false;
     }
 }

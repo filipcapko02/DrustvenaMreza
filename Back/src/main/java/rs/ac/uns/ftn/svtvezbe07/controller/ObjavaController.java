@@ -3,21 +3,20 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Grupa;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Komentar;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Group;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Comment;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.Like;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Objava;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Post;
 import rs.ac.uns.ftn.svtvezbe07.service.GrupaService;
 import rs.ac.uns.ftn.svtvezbe07.service.KomentarService;
 import rs.ac.uns.ftn.svtvezbe07.service.LikeService;
 import rs.ac.uns.ftn.svtvezbe07.service.ObjavaService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
-@RequestMapping("/api/objava")
+@RequestMapping("/api/post")
 @AllArgsConstructor
 public class ObjavaController {
 
@@ -29,56 +28,56 @@ public class ObjavaController {
 
     private final GrupaService groupService;
     @PostMapping("/new")
-    public ResponseEntity<Objava> create(@RequestBody Objava newPost) {
-        Objava addedPost = service.save(newPost);
+    public ResponseEntity<Post> create(@RequestBody Post newPost) {
+        Post addedPost = service.save(newPost);
         return new ResponseEntity<>(addedPost, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete (@PathVariable("id") Long id) {
-        Objava objava = service.getObjava(id);
-        Grupa grupa = groupService.getGroupByPost(objava);
-        if (grupa != null) {
-            grupa.getObjave().remove(objava);
-            groupService.save(grupa);
+        Post post = service.getPost(id);
+        Group group = groupService.getGroupByPost(post);
+        if (group != null) {
+            group.getPosts().remove(post);
+            groupService.save(group);
         }
 
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/update")
-    public ResponseEntity<Objava> updatePost(@RequestBody Objava updatedPost) {
-        Objava newPost = service.save(updatedPost);
+    public ResponseEntity<Post> updatePost(@RequestBody Post updatedPost) {
+        Post newPost = service.save(updatedPost);
         return new ResponseEntity<>(newPost, HttpStatus.OK);
     }
 
 
     @GetMapping("/allposts")
-    public ResponseEntity<List<Objava>> allposts(){
-        List<Objava> posts = service.getAll();
+    public ResponseEntity<List<Post>> allposts(){
+        List<Post> posts = service.getAll();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
 
     @PutMapping("/comment/{id}")
-    public ResponseEntity<Komentar> komentar(@PathVariable("id") Long id, @RequestBody Komentar komentar) {
-        Objava objava = service.getObjava(id);
-        komentar.setObjava(objava);
-        objava.getComments().add(komentar);
-        service.save(objava);
+    public ResponseEntity<Comment> comment(@PathVariable("id") Long id, @RequestBody Comment comment) {
+        Post post = service.getPost(id);
+        comment.setPost(post);
+        post.getComments().add(comment);
+        service.save(post);
 
-        return new ResponseEntity<>(komentar, HttpStatus.CREATED);
+        return new ResponseEntity<>(comment, HttpStatus.CREATED);
     }
 
     @PutMapping("/like/{id}/{userId}")
-    public ResponseEntity<Like> like(@PathVariable("id") Long id, @PathVariable("korisnik_id") Long korisnik_id) {
-        Objava objava = service.getObjava(id);
+    public ResponseEntity<Like> like(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        Post post = service.getPost(id);
 
         Like like = new Like();
-        like.setObjava(objava);
-        like.setKorisnik_id(korisnik_id);
-        objava.getLikes().add(like);
-        service.save(objava);
+        like.setPost(post);
+        like.setUserId(userId);
+        post.getLikes().add(like);
+        service.save(post);
 
 
 
@@ -86,20 +85,20 @@ public class ObjavaController {
     }
 
     @DeleteMapping("/unlike/{id}/{userId}")
-    public ResponseEntity<?> unlike(@PathVariable("id") Long id, @PathVariable("korisnik_id") Long korisnik_id) {
-        Objava objava = service.getObjava(id);
-        List<Like> likes = objava.getLikes();
+    public ResponseEntity<?> unlike(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        Post post = service.getPost(id);
+        List<Like> likes = post.getLikes();
         Like likeToRemove = new Like();
 
         for (Like like : likes) {
-            if (like.getKorisnik_id().equals(korisnik_id)) {
+            if (like.getUserId().equals(userId)) {
                 likeToRemove = like;
                 break;
             }
         }
         likes.remove(likeToRemove);
         likeService.delete(likeToRemove);
-        service.save(objava);
+        service.save(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

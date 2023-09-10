@@ -14,17 +14,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "objave")
-public class Objava {
+@Table(name = "posts")
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long objava_id;
+    private Long postId;
 
     @Column
-    private String objava_ime;
+    private String postName;
 
     @Column
-    private String sadzaj;
+    private String content;
 
     @Column
     private String url;
@@ -33,15 +33,15 @@ public class Objava {
     private LocalDateTime creationDate;
 
     @ManyToOne
-    private Korisnik korisnik;
+    private User user;
 
-    @OneToMany(mappedBy = "objava", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Komentar> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "objava", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
 
-    public Objava() {
+    public Post() {
         this.creationDate = LocalDateTime.now();
     }
 }

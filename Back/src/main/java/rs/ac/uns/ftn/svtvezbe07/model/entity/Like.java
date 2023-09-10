@@ -15,10 +15,10 @@ public class Like {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "objava_id")
+    @JoinColumn(name = "post_id")
     @JsonIgnore
-    private Objava objava;
+    private Post post;
 
     @Column
-    private Long korisnik_id;
+    private Long userId;
 }

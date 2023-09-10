@@ -13,37 +13,37 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "korisnici")
-public class Korisnik {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long korisnik_id;
+    private Long userId;
 
     @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
-    private String lozinka;
+    private String password;
 
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column
-    private LocalDateTime d_v_prijave;
+    private LocalDateTime lastLogin;
 
     @Column(nullable = false)
-    private String ime;
+    private String firstName;
 
     @Column(nullable = false)
-    private String prezime;
+    private String lastName;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Euloga uloga;
 
-    @OneToMany(mappedBy = "korisnik")
-    private Set<Admin_grupe> admin_grupe;
+    @OneToMany(mappedBy = "user")
+    private Set<GroupAdmin> groupAdmin;
 
     @Column
     private boolean isDeleted;

@@ -16,7 +16,7 @@ import rs.ac.uns.ftn.svtvezbe07.konstruktori.LoginRequest;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.RegisterRequest;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.UserTokenState;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.Euloga;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Korisnik;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
 import rs.ac.uns.ftn.svtvezbe07.repository.KorisnikRepository;
 import rs.ac.uns.ftn.svtvezbe07.security.TokenUtils;
 
@@ -38,18 +38,18 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     @Transactional
     public void singup(RegisterRequest request){
-        Korisnik korisnik = new Korisnik();
-        korisnik.setIme(request.getIme());
-        korisnik.setPrezime(request.getPrezime());
-        korisnik.setUsername(request.getUsername());
-        korisnik.setUloga(Euloga.KORISNIK);
-        korisnik.setLozinka(passwordEncoder.encode(request.getLozinka()));
-        korisnik.setEmail(request.getEmail());
-        korisnik.setDeleted(false);
-        korisnikRepository.save(korisnik);
+        User user = new User();
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setUsername(request.getUsername());
+        user.setUloga(Euloga.USER);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setEmail(request.getEmail());
+        user.setDeleted(false);
+        korisnikRepository.save(user);
     }
     public ResponseEntity<UserTokenState> login(LoginRequest loginRequest){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getLozinka()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Kreiraj token za tog korisnika

@@ -18,8 +18,8 @@ public class Slika {
     private String putanja;
 
     @ManyToOne
-    private Objava objava;
+    private Post post;
 
     @ManyToOne
-    private Korisnik koisnik;
+    private User koisnik;
 }
