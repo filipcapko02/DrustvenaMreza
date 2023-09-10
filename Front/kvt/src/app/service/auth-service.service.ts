@@ -19,18 +19,18 @@ export class AuthServiceService {
   ) {
   }
   private access_token = null;
-  login(korisnik: { username: any; lozinka: any; }) {
+  login(user: { username: any; password: any; }) {
     const loginHeaders = new HttpHeaders({
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
     const body = {
-      'username': korisnik.username,
-      'lozinka': korisnik.lozinka
+      'username': user.username,
+      'password': user.password
     };
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(map((res) => {
-        console.log('Login uspesan');
+        console.log('Login success');
         this.access_token = res.accessToken;
         localStorage.setItem("jwt", res.accessToken);
       }));
@@ -44,7 +44,7 @@ export class AuthServiceService {
     });
     return this.apiService.post(this.config.signup_url, JSON.stringify(user), signupHeaders)
       .pipe(map(() => {
-        console.log('Registracija uspesna');
+        console.log('Sign up success');
       }));
   }
 
@@ -61,4 +61,5 @@ export class AuthServiceService {
     this.access_token = null;
     this.userService.currentUser = null;
   }
+
 }

@@ -2,10 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'registracija', component: RegisterComponent}
+  {path: 'registracija', component: RegisterComponent},
+  {path: 'profil', component: ProfilComponent},
+  {path: 'pocetna', component:HomeComponent }
   
 ];
 

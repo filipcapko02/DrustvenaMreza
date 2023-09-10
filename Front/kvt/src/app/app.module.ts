@@ -16,12 +16,17 @@ import { HomeComponent } from './home/home.component';
 import { KorisnikServiceService } from './service/korisnik-service.service';
 import { ConfigServiceService } from './service/config-service.service';
 import { TokeninterceptorInterceptor } from './service/interceptor/token-interceptor';
+import { ProfilComponent } from './profil/profil.component';
+import {MatIconModule} from '@angular/material/icon';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    ProfilComponent,
     
   ],
   imports: [
@@ -31,7 +36,9 @@ import { TokeninterceptorInterceptor } from './service/interceptor/token-interce
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
+    MatIconModule,
+    NoopAnimationsModule
   ],
   providers: [
     {

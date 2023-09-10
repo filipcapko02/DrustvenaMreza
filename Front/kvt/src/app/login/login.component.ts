@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       });
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      lozinka: ['', Validators.required]
+      password: ['', Validators.required]
     });
   }
 
@@ -61,11 +61,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value)
       .subscribe(data => {
           this.userService.getMyInfo().subscribe();
-          this.router.navigate(['/']);
+          this.router.navigate(['/pocetna']);
         },
         error => {
           this.submitted = false;
-          this.notification = {msgType: 'error', msgBody: 'Username ili lozinka nisu dobri.'};
+          this.notification = {msgType: 'error', msgBody: 'Username or password not valid.'};
         });
+  }
+  redirectToRegistration() {
+    this.router.navigate(['/registracija']);
   }
 }

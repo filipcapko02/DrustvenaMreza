@@ -7,7 +7,7 @@
         </div>
         <div class="form-group">
             <label for="password">Lozinka</label>
-            <input formControlName="lozinka" type="password" placeholder="Lozinka" required>
+            <input formControlName="password" type="password" placeholder="Lozinka" required>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
@@ -15,13 +15,14 @@
         </div>
         <div class="form-group">
             <label for="firstName">Ime</label>
-            <input formControlName="ime" type="text" placeholder="Ime" required>
+            <input formControlName="firstName" type="text" placeholder="Ime" required>
         </div>
         <div class="form-group">
             <label for="lastName">Prezime</label>
-            <input formControlName="prezime" type="text" placeholder="Prezime" required>
+            <input formControlName="lastName" type="text" placeholder="Prezime" required>
         </div>
         <button type="submit" class="register-button">Registruj se</button>
     </form>
-    <p>Imas akaunt? <a href="login.html">Login</a></p>
+    <p>Imate akaunt? <a routerLink="/login" (click)="redirectToLogin()">Login</a>
+    </p>
 </div>

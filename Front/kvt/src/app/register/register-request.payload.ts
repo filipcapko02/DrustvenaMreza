@@ -1,8 +1,8 @@
 export interface RegisterRequestPayload {
-    ime: string;
-    prezime: string;
-    email: string;
-    username: string;
-    lozinka: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  username: string;
+  password: string;
   }
   

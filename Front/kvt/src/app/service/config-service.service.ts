@@ -14,7 +14,7 @@ export class ConfigServiceService {
     return this._login_url;
   }
 
-  private _profile_url = this._auth_url + '/profil';
+  private _profile_url = this._auth_url + '/profile';
 
   get profile_url(): string {
     return this._profile_url;
@@ -26,10 +26,10 @@ export class ConfigServiceService {
     return this._signup_url;
   }
 
-  private _user_url = this._api_url + '/korisnik';
+  private _user_url = this._api_url + '/user';
 
 
-  private _change_password_url = this._user_url + '/updatelozinka';
+  private _change_password_url = this._user_url + '/updatepassword';
 
   get change_password_url(): string {
     return this._change_password_url;
@@ -41,7 +41,7 @@ export class ConfigServiceService {
     return this._users_url;
   }
 
-  private _post_url = this._api_url + '/objava';
+  private _post_url = this._api_url + '/post';
 
   private _posts_url = this._post_url + '/allposts';
 
@@ -87,9 +87,9 @@ export class ConfigServiceService {
     return this._delete_post_url;
   }
 
-  private _group_url = this._api_url + '/grupa';
+  private _group_url = this._api_url + '/group';
 
-  private _all_groups_url = this._group_url + '/sve';
+  private _all_groups_url = this._group_url + '/all';
 
 
 
@@ -122,4 +122,9 @@ export class ConfigServiceService {
   get group_delete_url(): string {
     return this. _group_delete_url;
   }
+
+
+
+
+
 }

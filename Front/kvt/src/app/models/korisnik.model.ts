@@ -1,14 +1,14 @@
 export class KorisnikModel {
-    korisnik_id!: number;
-    username!: string;
-    lozinka!: string;
-    email!: string;
-    d_v_prijave!: string;
-    ime!: string;
-    prezime!: string;
-    uloga!: string;
-    admin_grupe!: [];
-    isDeleted!: boolean;
+  userId!: number;
+  username!: string;
+  password!: string;
+  email!: string;
+  lastLogin!: string;
+  firstName!: string;
+  lastName!: string;
+  role!: string;
+  groupAdmin!: [];
+  deleted!: boolean;
   
   }
   

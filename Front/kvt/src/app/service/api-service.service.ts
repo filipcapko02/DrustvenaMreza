@@ -27,13 +27,13 @@ export class ApiServiceService {
 
   get(path: string, args?: any): Observable<any> {
 
-    const options: { params?: HttpParams, headers?: HttpHeaders } = {};
+    const options = {
+        headers: this.headers,
+    };
 
     if (args) {
-      options.params = this.serialize(args);
+      options['params'] = this.serialize(args);
     }
-
-    options.headers = this.headers;
 
     return this.http.get(path, options)
       .pipe(catchError(this.checkError.bind(this)));
@@ -51,18 +51,13 @@ export class ApiServiceService {
     return this.request(path, body, RequestMethod.Delete);
   }
 
-  private request(path: string, body: any, method = RequestMethod.Post, customHeaders?: HttpHeaders): Observable<any> {
+  private request(path: string, body: any, method = RequestMethod.Post, custemHeaders?: HttpHeaders): Observable<any> {
     const req = new HttpRequest(method, path, body, {
-      headers: customHeaders || this.headers,
+      headers: custemHeaders || this.headers,
     });
 
-    return this.http.request(req).pipe(filter((response: HttpEvent<any>) => response instanceof HttpResponse))
-      .pipe(map((response: HttpEvent<any>) => {
-        if (response instanceof HttpResponse) {
-          return response.body;
-        }
-        return null;
-      }))
+    return this.http.request(req).pipe(filter(response => response instanceof HttpResponse))
+      .pipe(map((response: HttpResponse<any>) => response.body))
       .pipe(catchError(error => this.checkError(error)));
   }
 
@@ -85,4 +80,5 @@ export class ApiServiceService {
   private looseInvalid(a: string | number): boolean {
     return a === '' || a === null || a === undefined;
   }
+
 }

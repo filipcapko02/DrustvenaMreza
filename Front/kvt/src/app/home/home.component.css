@@ -1,0 +1,161 @@
+/* Stil za grupu */
+.group-section {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .group {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+    margin: 10px;
+  }
+  
+  .group h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .group p {
+    font-size: 14px;
+  }
+  
+  .group a {
+    text-decoration: none;
+    color: #007bff;
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .group a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Stil za container */
+  .container {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+    margin: 20px auto;
+  }
+  
+  .container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Stil za formu */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Stil za form-grupu (labela + input) */
+  .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  /* Stil za labelu */
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Stil za input polje */
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 10px;
+  }
+  
+  /* Stil za dugme za registraciju i postavljanje grupe */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Stil za tekst ispod forme */
+  p {
+    margin-top: 10px;
+  }
+  
+  /* Stil za link za prelazak na druge stranice */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Stil za naslov posta */
+.post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc; /* Dodajte donju granicu za uokvirivanje */
+    padding-bottom: 5px; /* Dodajte malo razmaka ispod naslova */
+  }
+  
+  /* Stil za sadržaj posta */
+  .post-content {
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Dodajte ivice za uokvirivanje */
+    padding: 10px; /* Dodajte malo razmaka oko sadržaja */
+  }
+  
+  /* Stil za container */
+.container {
+    display: flex;
+    justify-content: space-between; /* Postavite prostor između new-post-section i post-list */
+  }
+  
+  /* Stil za new-post-section */
+  .new-post-section {
+    flex: 1; /* Proširite new-post-section kako bi popunili dostupni prostor */
+    margin-right: 20px; /* Dodajte razmak između new-post-section i post-list */
+  }
+  
+  /* Stil za post-list */
+  .post-list {
+    flex: 2; /* Postavite post-list tako da zauzima više prostora od new-post-section */
+  }
+  
+  /* Stil za new-group (donji levi ugao) */
+  .new-group {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  /* Stil za navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Poravnaj elemente na levoj i desnoj strani */
+    align-items: center; /* Centriraj vertikalno */
+  }
+  
+  

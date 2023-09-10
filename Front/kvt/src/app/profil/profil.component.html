@@ -1,0 +1,66 @@
+<div class="group-section">
+    <div *ngFor="let group of userGroups" class="group">
+      <h2>{{ group.name }}</h2>
+      <p>{{ group.descripiton }}</p>
+      <a [routerLink]="'/group'" [queryParams]="{ id: group.id }">See more</a>
+      <button (click)="deleteGroup(group.id)">Delete Group</button>
+      </div>
+      </div>
+  
+  <div class="container">
+    <h1>Profile</h1>
+    <div class="profile-info">
+      <div class="avatar">
+        <span class="initials">{{ currentUser?.firstName.charAt(0) }}{{ currentUser?.lastName.charAt(0) }}</span>
+      </div>
+      <div class="details">
+        <h2>{{ currentUser?.firstName }} {{ currentUser?.lastName }}</h2>
+        <p><strong>User ID:</strong> {{ currentUser?.userId }}</p>
+        <p><strong>Username:</strong> {{ currentUser?.username }}</p>
+        <p><strong>Email:</strong> {{ currentUser?.email }}</p>
+        <p><strong>Last Login:</strong> {{ currentUser?.lastLogin }}</p>
+        <h3>Friends</h3>
+        <h3>Groups Administered</h3>
+        <ul>
+          <li *ngFor="let group of currentUser?.groupAdmin">{{ group }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="post-list">
+      <div *ngFor="let post of userPosts" class="post">
+        <h2>{{ post.postName }}</h2>
+        <p>{{ post.content }}</p>
+        <p><span>Likes:</span>{{ post.likes.length }}</p>
+        <p class="author">Posted by: {{ post.user.username }}</p>
+        <p class="author">Posted on: {{ post.creationDate }}</p>
+        <button class="delete-button" (click)="deletePost(post.postId)">Delete</button>
+        <button class="edit-button" (click)="openEditForm(post)">Edit</button>
+        <div class="edit-form" *ngIf="editPostFormVisible && editedPost?.id === post.id">
+          <form [formGroup]="editForm" (submit)="submitEditForm(post)">
+            <input type="text" formControlName="postName" placeholder="Post name">
+            <input type="text" formControlName="postContent" placeholder="Post description">
+            <button type="button" class="cancel-button" (click)="cancelEditForm()">Cancel</button>
+            <button type="submit" class="submit-button">Submit</button>
+          </form>
+        </div>
+           <hr>
+        </div>
+        </div>
+  
+    <div class="password-form">
+      <h3>Change Password</h3>
+      <form #profileForm="ngForm"  [formGroup]="form" (submit)="changePasswordForm()">
+        <label for="currentPassword">Current Password:</label>
+        <input  formControlName="oldPassword" type="password" id="currentPassword" name="currentPassword" required>
+  
+        <label for="newPassword">New Password:</label>
+        <input formControlName="newPassword" type="password" id="newPassword" name="newPassword" required>
+  
+        <label for="confirmPassword">Confirm New Password:</label>
+        <input formControlName="repeatPassword" type="password" id="confirmPassword" name="confirmPassword" required>
+  
+        <button class="btn" type="submit">Change Password</button>
+      </form>
+    </div>
+  </div>
+  

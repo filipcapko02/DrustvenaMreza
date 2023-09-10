@@ -1,1 +1,84 @@
-<p>home works!</p>
+<nav class="navbar">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a *ngIf="signed()" class="nav-link" routerLink="/pocetna">Pocetna strana</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a *ngIf="signed()" routerLink="/profil" class="nav-link">Profil</a>
+    </li>
+    <li class="nav-item">
+      <a *ngIf="signed()" (click)="logout()" class="nav-link">Odjavi se</a>
+    </li>
+  </ul>
+</nav>
+
+
+<div class="group-section">
+  <div *ngFor="let group of allGroups" class="group">
+    <h2>{{ group.name }}</h2>
+    <p>{{ group.description }}</p>
+    <a [routerLink]="'/group'" [queryParams]="{ id: group.id }">See more</a>
+  </div>
+</div>
+
+<div class="container">
+  
+
+  <div *ngIf="signed()" class="new-post-section">
+
+    <div *ngIf="signed()" class="new-post">
+      <h3>O cemu razmisljate</h3>
+      <form *ngIf="signed()" [formGroup]="postForm" (submit)="createPost()">
+        <textarea formControlName="content" placeholder="" required></textarea>
+        <button type="submit">Objavi</button>
+      </form>
+    </div>
+
+    
+
+<div *ngIf="signed()" class="post-list">
+  <div *ngFor="let post of allPosts" class="post">
+    <p class="author">Objavio: {{ post.user.username }}</p>
+    <p class="author">Datum: {{ post.creationDate }}</p>
+    <p class="post-content">{{ post.content }}</p>
+    <p><span>Likes:</span>{{ post.likes.length }}</p>
+    
+    <div class="actions">
+      <mat-icon><span class="material-symbols-outlined" (click)="likePost(post)">
+        thumb_up
+        </span></mat-icon>
+        <mat-icon><span class="material-symbols-outlined">
+          thumb_down
+          </span></mat-icon>
+          <mat-icon><span class="material-symbols-outlined">
+            favorite
+            </span></mat-icon>
+      
+    </div>
+    <div class="comments-section">
+      <h3>Komentari</h3>
+      <ul>
+        <li *ngFor="let comment of post.comments">
+          <p>{{ comment.content }}       {{ comment.postedOn }}</p>
+        </li>
+      </ul>
+      <form [formGroup]="commentForm" (submit)="addComment(post.postId)">
+        <input formControlName="text" type="text" placeholder="" required>
+        <button type="submit">Komentarisi</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="signed()" class="new-group">
+  <h3>Kreiraj grupu</h3>
+  <form [formGroup]="groupForm" (submit)="createGroup()">
+    <input type="text" formControlName="name" placeholder="Name" required>
+    <textarea formControlName="description" placeholder="Description" required></textarea>
+    <button type="submit">Kreiraj</button>
+  </form>
+</div>
+</div>
+</div>

@@ -16,15 +16,15 @@ export class KorisnikServiceService {
   ) {
   }
 
-  changePassword(korisnik: any, stara_lozinka: string){
-    return this.apiService.put(this.config.change_password_url+"/"+stara_lozinka, korisnik,);
+  changePassword(user: any, oldPassword: string){
+    return this.apiService.put(this.config.change_password_url+"/"+oldPassword, user,);
   }
 
   getMyInfo() {
     return this.apiService.get(this.config.profile_url)
-      .pipe(map(korisnik => {
-        this.currentUser = korisnik;
-        return korisnik;
+      .pipe(map(user => {
+        this.currentUser = user;
+        return user;
       }));
   }
 

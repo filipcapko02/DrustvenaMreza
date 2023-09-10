@@ -35,9 +35,9 @@ export class RegisterComponent {
       .pipe(takeUntil(this.ngUnsubscribe))
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      lozinka: ['', Validators.required],
-      ime: [''],
-      prezime: [''],
+      password: ['', Validators.required],
+      firstName: [''],
+      lastName: [''],
       email: ['']
     });
   }
@@ -60,9 +60,13 @@ export class RegisterComponent {
         this.router.navigate(['/login']);
       },
         error => {
+          this.router.navigate(['/login'])
           this.submitted = false;
           console.log('Greska');
         });
 
+  }
+  redirectToLogin() {
+    this.router.navigate(['/login']);
   }
 }
