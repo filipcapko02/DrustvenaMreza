@@ -11,7 +11,7 @@ import { ObjavaServiceService } from '../service/objava-service.service';
 import { KorisnikServiceService } from '../service/korisnik-service.service';
 import { AuthServiceService } from '../service/auth-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { DislikeModel } from '../models/dislike.model';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -167,6 +167,7 @@ export class HomeComponent implements OnInit{
         );
     }
   }
+  
 
   createGroup() {
     if (this.groupForm.invalid) {
@@ -218,5 +219,28 @@ export class HomeComponent implements OnInit{
   logout() {
     this.authService.logout();
   }
-
+  dislikePost(post: any){
+    const alreadyDisliked = post.dislikes.some((dislike: DislikeModel) => dislike.userId === this.currentUser?.userId);
+    if(!alreadyDisliked){
+    this.postService.addDislike(post.postId,this.currentUser.userId).subscribe(
+      (Response: ObjavaModel[]) => {
+        this.getAllPosts();
+        this.allPosts = Response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+      );
+    }else{
+      this.postService.removeDislike(post.postId,this.currentUser.userId).subscribe(
+        (Response: ObjavaModel[]) => {
+          this.getAllPosts();
+          this.allPosts = Response;
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+        );
+    }
+  }
 }

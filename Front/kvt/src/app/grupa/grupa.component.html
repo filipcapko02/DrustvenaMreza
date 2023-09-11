@@ -1,0 +1,71 @@
+<nav class="navbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a *ngIf="signed()" class="nav-link" routerLink="/pocetna">Pocetna strana</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a *ngIf="signed()" routerLink="/profil" class="nav-link">Profil</a>
+        </li>
+        <li class="nav-item">
+            <a *ngIf="signed()" (click)="logout()" class="nav-link">Odjavi se</a>
+        </li>
+    </ul>
+</nav>
+
+
+    <div class="group-details">
+        <h1>Informacije</h1>
+        <p> {{ group.descripiton }}</p>
+        <p>Admin {{ group.user.username }}</p>
+    </div>
+
+    <div class="create-post-section">
+        <h2>O cemu razmisljate</h2>
+
+        <form [formGroup]="postForm" (submit)="createGroupPost()">
+            <input type="text" formControlName="name" placeholder="Tema" required>
+            <textarea formControlName="content" placeholder="" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="group-posts">
+        <h2>Objave</h2>
+        <div class="post" *ngFor="let post of group.posts">
+            <h3>{{ post.postName }}</h3>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <p><span>Likes:</span>{{ post.likes.length }}</p>
+            <p>Objavio: {{ post.user.username }}</p>
+            <div class="actions">
+                <mat-icon><span class="material-symbols-outlined" (click)="likePost(post)">
+          thumb_up
+          </span></mat-icon>
+                <mat-icon><span class="material-symbols-outlined">
+            thumb_down
+            </span></mat-icon>
+                <mat-icon><span class="material-symbols-outlined">
+              favorite
+              </span></mat-icon>
+
+            </div>
+            <div class="comments-section">
+                <h3>Komentari</h3>
+                <ul>
+                    <li *ngFor="let comment of post.comments">
+                        <p>{{ comment.content }}</p>
+                        <p>{{ comment.postedOn }}</p>
+                    </li>
+                </ul>
+                <form [formGroup]="commentForm" (submit)="addComment(post.postId)">
+                    <input formControlName="text" type="text" placeholder="Komentar" required>
+                    <button type="submit">Objavi</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    

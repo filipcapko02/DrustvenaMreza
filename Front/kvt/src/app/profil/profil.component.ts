@@ -7,6 +7,7 @@ import { ObjavaModel } from '../models/objava.model';
 import { KorisnikServiceService } from '../service/korisnik-service.service';
 import { AuthServiceService } from '../service/auth-service.service';
 import { ObjavaServiceService } from '../service/objava-service.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -25,7 +26,7 @@ export class ProfilComponent implements OnInit {
 
 
 
-  constructor(private userService: KorisnikServiceService,private postService: ObjavaServiceService,private formBuilder: FormBuilder,private authService: AuthServiceService,) {}
+  constructor(private userService: KorisnikServiceService,private postService: ObjavaServiceService,private formBuilder: FormBuilder,private authService: AuthServiceService,private router: Router) {}
 
   ngOnInit(): void {
 
@@ -161,4 +162,8 @@ cancelEditForm() {
   this.editPostFormVisible = false;
   this.form.reset();
 }
+redirectToLogin() {
+  this.router.navigate(['/login']);
+}
+
 }

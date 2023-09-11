@@ -19,6 +19,7 @@ import { TokeninterceptorInterceptor } from './service/interceptor/token-interce
 import { ProfilComponent } from './profil/profil.component';
 import {MatIconModule} from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { GrupaComponent } from './grupa/grupa.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     RegisterComponent,
     HomeComponent,
     ProfilComponent,
+    GrupaComponent,
     
   ],
   imports: [

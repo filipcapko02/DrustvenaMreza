@@ -60,6 +60,17 @@ export class ConfigServiceService {
   get unlike_url(): string {
     return this._unlike_url;
   }
+  private _dislike_url = this._post_url + '/dislike/';
+
+  get dislike_url(): string {
+    return this._dislike_url;
+  }
+
+  private _undislike_url = this._post_url + '/undislike/';
+
+  get undislike_url(): string {
+    return this._undislike_url;
+  }
 
   private _add_comment_url = this._post_url + '/comment/';
 

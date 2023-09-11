@@ -33,6 +33,12 @@ export class ObjavaServiceService {
   public removeLike(postId: number,userId: number): Observable<any> {
     return this.apiService.delete(`${this.config.unlike_url}${postId}/${userId}`,"");
   }
+  public addDislike(postId: number,userId: number): Observable<any> {
+    return this.apiService.put(`${this.config.dislike_url}${postId}/${userId}`,"");
+  }
+  public removeDislike(postId: number,userId: number): Observable<any> {
+    return this.apiService.delete(`${this.config.undislike_url}${postId}/${userId}`,"");
+  }
 
   public updatePost(post: ObjavaModel): Observable<ObjavaModel> {
     return this.apiService.put(this.config.update_post_url, post);

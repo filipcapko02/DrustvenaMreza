@@ -18,67 +18,68 @@
 <div class="group-section">
   <div *ngFor="let group of allGroups" class="group">
     <h2>{{ group.name }}</h2>
-    <p>{{ group.description }}</p>
-    <a [routerLink]="'/group'" [queryParams]="{ id: group.id }">See more</a>
-  </div>
-</div>
+    <p>{{ group.descripiton }}</p>
+    <a [routerLink]="'/grupa'" [queryParams]="{ id: group.id }">Vidi</a>
+    </div>
+    </div>
 
 <div class="container">
-  
 
-  <div *ngIf="signed()" class="new-post-section">
+  <div *ngIf="signed()"  class="new-post-section">
 
-    <div *ngIf="signed()" class="new-post">
-      <h3>O cemu razmisljate</h3>
-      <form *ngIf="signed()" [formGroup]="postForm" (submit)="createPost()">
-        <textarea formControlName="content" placeholder="" required></textarea>
-        <button type="submit">Objavi</button>
-      </form>
-    </div>
-
-    
-
-<div *ngIf="signed()" class="post-list">
-  <div *ngFor="let post of allPosts" class="post">
-    <p class="author">Objavio: {{ post.user.username }}</p>
-    <p class="author">Datum: {{ post.creationDate }}</p>
-    <p class="post-content">{{ post.content }}</p>
-    <p><span>Likes:</span>{{ post.likes.length }}</p>
-    
-    <div class="actions">
-      <mat-icon><span class="material-symbols-outlined" (click)="likePost(post)">
-        thumb_up
-        </span></mat-icon>
-        <mat-icon><span class="material-symbols-outlined">
-          thumb_down
-          </span></mat-icon>
-          <mat-icon><span class="material-symbols-outlined">
-            favorite
-            </span></mat-icon>
-      
-    </div>
-    <div class="comments-section">
-      <h3>Komentari</h3>
-      <ul>
-        <li *ngFor="let comment of post.comments">
-          <p>{{ comment.content }}       {{ comment.postedOn }}</p>
-        </li>
-      </ul>
-      <form [formGroup]="commentForm" (submit)="addComment(post.postId)">
-        <input formControlName="text" type="text" placeholder="" required>
-        <button type="submit">Komentarisi</button>
-      </form>
+<div *ngIf="signed()" class="new-post">
+    <h3>O cemu razmisljate</h3>
+    <form *ngIf="signed()" [formGroup]="postForm" (submit)="createPost()">
+      <input type="text" formControlName="name" placeholder="Tema" required>
+      <textarea formControlName="content" placeholder="" required></textarea>
+      <button type="submit">Post</button>
+    </form>
+  </div>
+<div *ngIf="signed()" class="new-group">
+    <h3>Kreiraj grupu</h3>
+    <form [formGroup]="groupForm" (submit)="createGroup()">
+      <input type="text" formControlName="name" placeholder="Ime grupe" required>
+      <textarea formControlName="description" placeholder="Opis grupe" required></textarea>
+      <button type="submit">Post</button>
+    </form>
     </div>
   </div>
 </div>
-
-<div *ngIf="signed()" class="new-group">
-  <h3>Kreiraj grupu</h3>
-  <form [formGroup]="groupForm" (submit)="createGroup()">
-    <input type="text" formControlName="name" placeholder="Name" required>
-    <textarea formControlName="description" placeholder="Description" required></textarea>
-    <button type="submit">Kreiraj</button>
-  </form>
-</div>
-</div>
-</div>
+  <div class="post-list">
+    <div *ngFor="let post of allPosts" class="post">
+      
+      <p>{{ post.content }}</p>
+      <p><span>Likes:</span>{{ post.likes.length }}</p>
+      <p><span>Dislikes:</span>{{ post.dislikes.length }}</p>
+      <p class="author">Objavio {{ post.user.username }}</p>
+      <p class="author">Datum {{ post.creationDate }}</p>
+      <div class="actions">
+        <mat-icon><span class="material-symbols-outlined" (click)="likePost(post)">
+          thumb_up
+          </span></mat-icon>
+          <mat-icon><span class="material-symbols-outlined" (click)="dislikePost(post)">
+            thumb_down
+            </span></mat-icon>
+            <mat-icon><span class="material-symbols-outlined">
+              favorite
+              </span></mat-icon>
+        
+      </div>
+      <div class="comments-section">
+        <h3>Komentari</h3>
+        <ul>
+          <li *ngFor="let comment of post.comments">
+            <p class="author">Objavio {{ post.user.username }}</p>
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.postedOn }}</p>
+            
+          </li>
+          
+        </ul>
+        <form [formGroup]="commentForm" (submit)="addComment(post.postId)">
+          <input formControlName="text" type="text" placeholder="Dodaj komentar" required>
+          <button type="submit">Komentarisi</button>
+        </form>
+      </div>
+    </div>
+  </div>
