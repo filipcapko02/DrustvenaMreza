@@ -12,6 +12,8 @@ import { KorisnikServiceService } from '../service/korisnik-service.service';
 import { AuthServiceService } from '../service/auth-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DislikeModel } from '../models/dislike.model';
+import { HeartModel } from '../models/heart.model';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -233,6 +235,30 @@ export class HomeComponent implements OnInit{
       );
     }else{
       this.postService.removeDislike(post.postId,this.currentUser.userId).subscribe(
+        (Response: ObjavaModel[]) => {
+          this.getAllPosts();
+          this.allPosts = Response;
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+        );
+    }
+  }
+  heartPost(post: any){
+    const alreadyHearted = post.hearts.some((heart: HeartModel) => heart.userId === this.currentUser?.userId);
+    if(!alreadyHearted){
+    this.postService.addHeart(post.postId,this.currentUser.userId).subscribe(
+      (Response: ObjavaModel[]) => {
+        this.getAllPosts();
+        this.allPosts = Response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+      );
+    }else{
+      this.postService.removeHeart(post.postId,this.currentUser.userId).subscribe(
         (Response: ObjavaModel[]) => {
           this.getAllPosts();
           this.allPosts = Response;

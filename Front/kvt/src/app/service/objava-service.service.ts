@@ -39,6 +39,12 @@ export class ObjavaServiceService {
   public removeDislike(postId: number,userId: number): Observable<any> {
     return this.apiService.delete(`${this.config.undislike_url}${postId}/${userId}`,"");
   }
+  public addHeart(postId: number,userId: number): Observable<any> {
+    return this.apiService.put(`${this.config.heart_url}${postId}/${userId}`,"");
+  }
+  public removeHeart(postId: number,userId: number): Observable<any> {
+    return this.apiService.delete(`${this.config.unheart_url}${postId}/${userId}`,"");
+  }
 
   public updatePost(post: ObjavaModel): Observable<ObjavaModel> {
     return this.apiService.put(this.config.update_post_url, post);

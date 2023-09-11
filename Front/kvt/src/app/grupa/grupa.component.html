@@ -15,13 +15,13 @@
 </nav>
 
 
-    <div class="group-details">
+    <div class="group-details" *ngIf="signed()">
         <h1>Informacije</h1>
         <p> {{ group.descripiton }}</p>
         <p>Admin {{ group.user.username }}</p>
     </div>
 
-    <div class="create-post-section">
+    <div class="create-post-section" *ngIf="signed()">
         <h2>O cemu razmisljate</h2>
 
         <form [formGroup]="postForm" (submit)="createGroupPost()">
@@ -31,27 +31,30 @@
         </form>
     </div>
 
-    <div class="group-posts">
+    <div class="group-posts" *ngIf="signed()">
         <h2>Objave</h2>
         <div class="post" *ngFor="let post of group.posts">
             <h3>{{ post.postName }}</h3>
             <h3>{{ post.title }}</h3>
             <p>{{ post.content }}</p>
             <p><span>Likes:</span>{{ post.likes.length }}</p>
+      <p><span>Dislikes:</span>{{ post.dislikes.length }}</p>
+      <p><span>Hearts:</span>{{ post.hearts.length }}</p>
             <p>Objavio: {{ post.user.username }}</p>
             <div class="actions">
-                <mat-icon><span class="material-symbols-outlined" (click)="likePost(post)">
-          thumb_up
-          </span></mat-icon>
-                <mat-icon><span class="material-symbols-outlined">
-            thumb_down
-            </span></mat-icon>
-                <mat-icon><span class="material-symbols-outlined">
-              favorite
-              </span></mat-icon>
-
-            </div>
-            <div class="comments-section">
+                <div class="actions">
+                    <mat-icon><span class="material-symbols-outlined" (click)="likePost(post)">
+                      thumb_up
+                      </span></mat-icon>
+                      <mat-icon><span class="material-symbols-outlined" (click)="dislikePost(post)">
+                        thumb_down
+                        </span></mat-icon>
+                        <mat-icon><span class="material-symbols-outlined" (click)="heartPost(post)">
+                          favorite
+                          </span></mat-icon>
+                    
+                  </div>
+            <div class="comments-section" *ngIf="signed()">
                 <h3>Komentari</h3>
                 <ul>
                     <li *ngFor="let comment of post.comments">
@@ -67,5 +70,5 @@
         </div>
 
     </div>
+    </div>
 
-    

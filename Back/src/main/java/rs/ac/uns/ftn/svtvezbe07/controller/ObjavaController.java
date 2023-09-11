@@ -23,6 +23,8 @@ public class ObjavaController {
     private final DislikeService dislikeService;
 
     private final GrupaService groupService;
+
+    private final HeartService heartService;
     @PostMapping("/new")
     public ResponseEntity<Post> create(@RequestBody Post newPost) {
         Post addedPost = service.save(newPost);
@@ -126,6 +128,38 @@ public class ObjavaController {
         }
         dislikes.remove(dislikeToRemove);
         dislikeService.delete(dislikeToRemove);
+        service.save(post);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/heart/{id}/{userId}")
+    public ResponseEntity<Heart> heart(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        Post post = service.getPost(id);
+
+        Heart heart = new Heart();
+        heart.setPost(post);
+        heart.setUserId(userId);
+        post.getHearts().add(heart);
+        service.save(post);
+
+
+
+        return new ResponseEntity<>(heart, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/unheart/{id}/{userId}")
+    public ResponseEntity<?> unheart(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        Post post = service.getPost(id);
+        List<Heart> hearts = post.getHearts();
+        Heart heartToRemove = new Heart();
+
+        for (Heart heart : hearts) {
+            if (heart.getUserId().equals(userId)) {
+                heartToRemove = heart;
+                break;
+            }
+        }
+        hearts.remove(heartToRemove);
+        heartService.delete(heartToRemove);
         service.save(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }

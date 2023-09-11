@@ -12,6 +12,7 @@ import { ObjavaServiceService } from '../service/objava-service.service';
 import { KorisnikServiceService } from '../service/korisnik-service.service';
 import { AuthServiceService } from '../service/auth-service.service';
 
+
 @Component({
   selector: 'app-grupa',
   templateUrl: './grupa.component.html',
@@ -167,6 +168,7 @@ signed() {
 logout() {
   this.authService.logout();
 }
+
 }
 
 

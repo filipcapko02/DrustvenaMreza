@@ -14,28 +14,28 @@
   </ul>
 </nav>
 
-<div class="group-section">
+<div class="group-section" *ngIf="signed()">
   <div *ngFor="let group of userGroups" class="group">
     <h2>{{ group.name }}</h2>
     <p>{{ group.description }}</p>
-    <a [routerLink]="'/group'" [queryParams]="{ id: group.id }">Pogledaj</a>
+    <a [routerLink]="'/grupa'" [queryParams]="{ id: group.id }">Pogledaj</a>
     <button (click)="deleteGroup(group.id)">Obrisi Grupu</button>
   </div>
 </div>
 
-<div class="container">
+<div class="container" *ngIf="signed()">
   <h1>Profil</h1>
   <div class="profile-info">
     <div class="details">
       <h2>{{ currentUser?.firstName }} {{ currentUser?.lastName }}</h2>
       <p><strong>Username:</strong> {{ currentUser?.username }}</p>
       <p><strong>Email:</strong> {{ currentUser?.email }}</p>
-      <h3>Admin grupe</h3>
+      
       
     </div>
   </div>
 
-  <div class="password-form">
+  <div class="password-form" *ngIf="signed()">
     <h3>Promeni lozinku</h3>
     <form #profileForm="ngForm" [formGroup]="form" (submit)="changePasswordForm()">
       <label for="currentPassword">Trenutna Lozinka:</label>
@@ -51,7 +51,7 @@
     </form>
   </div>
 
-  <div class="post-list">
+  <div class="post-list" *ngIf="signed()">
     <div *ngFor="let post of userPosts" class="post">
       <h2>{{ post.postName }}</h2>
       <p>{{ post.content }}</p>

@@ -71,6 +71,17 @@ export class ConfigServiceService {
   get undislike_url(): string {
     return this._undislike_url;
   }
+  private _heart_url = this._post_url + '/heart/';
+
+  get heart_url(): string {
+    return this._heart_url;
+  }
+
+  private _unheart_url = this._post_url + '/unheart/';
+
+  get unheart_url(): string {
+    return this._unheart_url;
+  }
 
   private _add_comment_url = this._post_url + '/comment/';
 

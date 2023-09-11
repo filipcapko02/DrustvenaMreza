@@ -45,12 +45,13 @@
     </div>
   </div>
 </div>
-  <div class="post-list">
+  <div class="post-list" *ngIf="signed()">
     <div *ngFor="let post of allPosts" class="post">
       
       <p>{{ post.content }}</p>
       <p><span>Likes:</span>{{ post.likes.length }}</p>
       <p><span>Dislikes:</span>{{ post.dislikes.length }}</p>
+      <p><span>Hearts:</span>{{ post.hearts.length }}</p>
       <p class="author">Objavio {{ post.user.username }}</p>
       <p class="author">Datum {{ post.creationDate }}</p>
       <div class="actions">
@@ -60,12 +61,12 @@
           <mat-icon><span class="material-symbols-outlined" (click)="dislikePost(post)">
             thumb_down
             </span></mat-icon>
-            <mat-icon><span class="material-symbols-outlined">
+            <mat-icon><span class="material-symbols-outlined" (click)="heartPost(post)">
               favorite
               </span></mat-icon>
         
       </div>
-      <div class="comments-section">
+      <div class="comments-section" *ngIf="signed()">
         <h3>Komentari</h3>
         <ul>
           <li *ngFor="let comment of post.comments">
