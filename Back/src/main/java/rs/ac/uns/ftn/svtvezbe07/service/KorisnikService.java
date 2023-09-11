@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.KorisnikKonstruktor;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Euloga;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Role;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
 import rs.ac.uns.ftn.svtvezbe07.repository.KorisnikRepository;
 
@@ -51,7 +51,7 @@ public class KorisnikService implements KorisnikSevice {
         User nov_user = new User();
         nov_user.setUsername(korisnik1.getUsername());
         nov_user.setPassword(passwordEncoder.encode(korisnik1.getPassword()));
-        nov_user.setUloga(Euloga.USER);
+        nov_user.setRole(Role.USER);
         nov_user.setFirstName(korisnik1.getFirstName());
         nov_user.setLastName(korisnik1.getLastName());
         nov_user.setEmail(korisnik1.getEmail());

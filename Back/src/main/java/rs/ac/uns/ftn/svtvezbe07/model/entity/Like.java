@@ -15,7 +15,7 @@ public class Like {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     @JsonIgnore
     private Post post;
 

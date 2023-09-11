@@ -40,7 +40,7 @@ public class User {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Euloga uloga;
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private Set<GroupAdmin> groupAdmin;

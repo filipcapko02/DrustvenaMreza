@@ -1,25 +1,23 @@
 package rs.ac.uns.ftn.svtvezbe07.model.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@Table(name = "slike")
-public class Slika {
+@Table(name = "dislike")
+public class Dislike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String putanja;
-
     @ManyToOne
+    @JoinColumn(name = "postId")
+    @JsonIgnore
     private Post post;
 
-    @ManyToOne
-    private User koisnik;
+    @Column
+    private Long userId;
 }

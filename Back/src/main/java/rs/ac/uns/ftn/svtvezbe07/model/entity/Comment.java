@@ -29,7 +29,7 @@ public class Comment {
     private LocalDateTime postedOn;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "postId")
     @JsonIgnore
     private Post post;
 

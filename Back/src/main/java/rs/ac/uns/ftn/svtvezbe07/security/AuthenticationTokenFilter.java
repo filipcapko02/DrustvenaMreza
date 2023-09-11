@@ -20,7 +20,7 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     private TokenUtils tokenUtils;
 
-    @Autowired
+
     public AuthenticationTokenFilter(UserDetailsService userDetailsService, TokenUtils tokenUtils) {
         this.userDetailsService = userDetailsService;
         this.tokenUtils = tokenUtils;

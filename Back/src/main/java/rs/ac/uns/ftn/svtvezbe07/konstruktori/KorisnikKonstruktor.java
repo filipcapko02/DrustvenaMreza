@@ -22,11 +22,11 @@ public class KorisnikKonstruktor {
     private String email;
 
 
-    public KorisnikKonstruktor(User nov_user) {
-        this.userId = nov_user.getUserId();
-        this.username = nov_user.getUsername();
-        this.email = nov_user.getEmail();
-        this.firstName = nov_user.getFirstName();
-        this.lastName = nov_user.getLastName();
+    public KorisnikKonstruktor(User createdUser) {
+        this.userId = createdUser.getUserId();
+        this.username = createdUser.getUsername();
+        this.email = createdUser.getEmail();
+        this.firstName = createdUser.getFirstName();
+        this.lastName = createdUser.getLastName();
     }
 }

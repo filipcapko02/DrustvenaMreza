@@ -43,4 +43,3 @@ public class AuthController {
         return this.userService.findByUsername(user.getName());
     }
 }
-

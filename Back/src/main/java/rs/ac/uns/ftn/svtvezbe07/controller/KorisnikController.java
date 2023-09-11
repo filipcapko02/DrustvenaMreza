@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Euloga;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Role;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
 import rs.ac.uns.ftn.svtvezbe07.service.KorisnikService;
 
@@ -30,7 +30,7 @@ public class KorisnikController {
         System.out.println(oldPassword);
         System.out.println(service.geOne(user.getUserId()).getPassword());
         if(match){
-            user.setUloga(Euloga.USER);
+            user.setRole(Role.USER);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User nov = service.save(user);
             return new ResponseEntity<>(nov, HttpStatus.CREATED);

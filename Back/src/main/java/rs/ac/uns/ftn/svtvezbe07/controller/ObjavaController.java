@@ -3,14 +3,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Group;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Comment;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Like;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Post;
-import rs.ac.uns.ftn.svtvezbe07.service.GrupaService;
-import rs.ac.uns.ftn.svtvezbe07.service.KomentarService;
-import rs.ac.uns.ftn.svtvezbe07.service.LikeService;
-import rs.ac.uns.ftn.svtvezbe07.service.ObjavaService;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.*;
+import rs.ac.uns.ftn.svtvezbe07.service.*;
 
 import java.util.List;
 
@@ -25,6 +19,8 @@ public class ObjavaController {
     private final KomentarService commentService;
 
     private final LikeService likeService;
+
+    private final DislikeService dislikeService;
 
     private final GrupaService groupService;
     @PostMapping("/new")
@@ -98,6 +94,38 @@ public class ObjavaController {
         }
         likes.remove(likeToRemove);
         likeService.delete(likeToRemove);
+        service.save(post);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PutMapping("/dislike/{id}/{userId}")
+    public ResponseEntity<Dislike> dislike(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        Post post = service.getPost(id);
+
+        Dislike dislike = new Dislike();
+        dislike.setPost(post);
+        dislike.setUserId(userId);
+        post.getDislikes().add(dislike);
+        service.save(post);
+
+
+
+        return new ResponseEntity<>(dislike, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/undislike/{id}/{userId}")
+    public ResponseEntity<?> undislike(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        Post post = service.getPost(id);
+        List<Dislike> dislikes = post.getDislikes();
+        Dislike dislikeToRemove = new Dislike();
+
+        for (Dislike dislike : dislikes) {
+            if (dislike.getUserId().equals(userId)) {
+                dislikeToRemove = dislike;
+                break;
+            }
+        }
+        dislikes.remove(dislikeToRemove);
+        dislikeService.delete(dislikeToRemove);
         service.save(post);
         return new ResponseEntity<>(HttpStatus.OK);
     }

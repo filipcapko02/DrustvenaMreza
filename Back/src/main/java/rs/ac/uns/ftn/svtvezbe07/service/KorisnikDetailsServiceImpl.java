@@ -29,8 +29,8 @@ public class KorisnikDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Ne postoji korisnik sa korisnicik imenom " + username);
         }else{
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            String uloga = "ULOGA_" + user.getUloga().toString();
-            grantedAuthorities.add(new SimpleGrantedAuthority(uloga));
+            String role = "ROLE_" + user.getRole().toString();
+            grantedAuthorities.add(new SimpleGrantedAuthority(role));
 
             return new org.springframework.security.core.userdetails.User(
                     user.getUsername().trim(),

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.LoginRequest;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.RegisterRequest;
 import rs.ac.uns.ftn.svtvezbe07.konstruktori.UserTokenState;
-import rs.ac.uns.ftn.svtvezbe07.model.entity.Euloga;
+import rs.ac.uns.ftn.svtvezbe07.model.entity.Role;
 import rs.ac.uns.ftn.svtvezbe07.model.entity.User;
 import rs.ac.uns.ftn.svtvezbe07.repository.KorisnikRepository;
 import rs.ac.uns.ftn.svtvezbe07.security.TokenUtils;
@@ -42,7 +42,7 @@ public class AuthService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setUsername(request.getUsername());
-        user.setUloga(Euloga.USER);
+        user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.setDeleted(false);
